@@ -9,6 +9,8 @@ export const userSignup = async (req, res, next) => {
     try {
         const{username , email , password} = req.body;
 
+        console.log(req.body);
+
         const exisitngUser = await User.findOne({email: email});
         if(exisitngUser) {
             return res.status(409).json({error: 'User already Exists'});
