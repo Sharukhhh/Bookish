@@ -5,6 +5,7 @@ import UserHome from "./Pages/user/UserHome";
 import PrivatePages from "./components/others/PrivatePages";
 import Dashboard from "./Pages/admin/Dashboard";
 import Addbook from "./Pages/admin/Addbook";
+import UserCart from "./Pages/user/UserCart";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
 
           <Route element={<PrivatePages isUser={true}/>}>
             <Route path="/home" element={<UserHome/>}/>
+            <Route path="/cart" element={<UserCart/>}/>
           </Route>
 
           <Route element={<PrivatePages isUser={false}/>}>

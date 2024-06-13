@@ -1,15 +1,28 @@
 import { createApi , fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const baseQuery = fetchBaseQuery({
+    baseUrl: 'http://localhost:4000/api/user/',
+
+    prepareHeaders: (headers) => {
+        const token = localStorage.getItem('userrToken');
+
+        if(token) {
+            headers.set('authorization' , `Bearer ${token}`);
+        }
+        return headers;
+    }
+})
+
 export const userApiSlice = createApi({
 
     reducerPath: 'userApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:4000/api/'}),
+    baseQuery,
 
     endpoints : (builder) => ({
 
         registerUser: builder.mutation({
             query : (userData) => ({
-                url: 'user/signup',
+                url: 'signup',
                 method: 'POST',
                 body: userData
             })
@@ -17,22 +30,21 @@ export const userApiSlice = createApi({
 
         loginUser: builder.mutation({
             query: (userData) => ({
-                url: 'user/login',
+                url: 'login',
                 method: 'POST',
                 body: userData
             })
         }),
 
-        adminLogin: builder.mutation({
-            query: (data) => ({
-                url: 'admin/login',
-                method: 'POST',
-                body: data
-            })
-        }),
+        booksForUsers: builder.query({
+            query: () => ({
+                url : 'books',
+                method: 'GET',
+            }),
+        })
     })
 
 })
 
 
-export const { useRegisterUserMutation , useLoginUserMutation , useAdminLoginMutation} = userApiSlice;
+export const { useRegisterUserMutation , useLoginUserMutation , useBooksForUsersQuery } = userApiSlice;

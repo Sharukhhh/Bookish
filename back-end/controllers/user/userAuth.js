@@ -1,4 +1,5 @@
 import User from '../../models/users.js';
+import Book from '../../models/books.js'
 import { comparePassword, encodePassword, generateToken } from '../../utils/utills.js';
 
 
@@ -54,7 +55,8 @@ export const userLogin = async (req, res, next) => {
 
         const payload = {
             username: isExisitngUser?.username,
-            userId: isExisitngUser?._id
+            userId: isExisitngUser?._id,
+            email: isExisitngUser?.email
         }
 
         const token = await generateToken(payload);
@@ -69,5 +71,25 @@ export const userLogin = async (req, res, next) => {
 
     } catch (error) {
         return res.statusCode(500).json({error: 'Server Error'});
+    }
+}
+
+
+/*
+path: '/api/user/books'
+method: GET
+*/
+export const getBooks = async (req, res) => {
+    try {
+        const books = await Book.find();
+
+        if(books.length === 0) {
+            return res.status(404).json({error: 'Books not found'});
+        }
+
+        return res.status(200).json({message: 'success' , books});
+
+    } catch (error) {
+        return res.statusCode(500);
     }
 }

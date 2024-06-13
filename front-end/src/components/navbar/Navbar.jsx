@@ -31,8 +31,8 @@ const Navbar = ({isUser}) => {
                 <ul className='hidden md:flex space-x-8'>
                     {isUser ? (
                         <>
-                            <NavList listTitle={'PROFILE'}/>
-                            <NavList listTitle={'YOUR CART'}/>
+                            <NavList listTitle={'PROFILE'} to={'/home'}/>
+                            <NavList listTitle={'YOUR CART'} to={'/cart'}/>
                         </>
                     ) : (
                         <>

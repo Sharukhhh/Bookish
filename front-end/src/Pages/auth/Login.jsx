@@ -5,11 +5,12 @@ import Button from '../../components/buttons/Button'
 import { ThreeDots } from "react-loader-spinner";
 import { useAuthForm } from '../../custom hooks/authFormhook'
 import { displaySuccessAlert, triggerErrorAlert } from '../../utils/alertUtils'
-import { useAdminLoginMutation, useLoginUserMutation } from '../../redux/slices/services/apiSlice'
+import { useLoginUserMutation } from '../../redux/slices/services/apiSlice'
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '../../redux/slices/states/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { setadminInfo } from '../../redux/slices/states/adminSlice';
+import { useAdminLoginMutation } from '../../redux/slices/services/adminApiSlice';
 
 const Login = ({isUser}) => {
 
@@ -17,7 +18,7 @@ const Login = ({isUser}) => {
     const navigate = useNavigate();
     const {userData , handleChangeData} = useAuthForm();
     const [loginUser , {isLoading}] = useLoginUserMutation();
-    const [adminLogin ] = useAdminLoginMutation()
+    const [adminLogin ] = useAdminLoginMutation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();

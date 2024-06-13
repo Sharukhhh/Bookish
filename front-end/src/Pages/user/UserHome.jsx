@@ -2,16 +2,38 @@ import React from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import BookCard from '../../components/cards/BookCard'
 import Searchfield from '../../components/fields/Searchfield'
+import { useBooksForUsersQuery } from '../../redux/slices/services/apiSlice'
+import {Grid} from 'react-loader-spinner'
 
 const UserHome = () => {
+
+  const {data , isLoading , isError} = useBooksForUsersQuery()
   return (
     <>
         <Navbar isUser={true}/>
         <div className='container mx-auto p-4 mt-24'>
           <Searchfield/>
 
-          <BookCard isUser={true} />
-          <BookCard isUser={true}/>
+        {
+          isLoading ? (
+            <div className='flex justify-center my-20'>
+              <Grid
+              visible={true}
+              height="100"
+              width="100"
+              color="blue"
+              />
+            </div>
+          ) :isError ? (
+            <div className='text-center font-medium my-20'>
+              <p>Failed to load data, please try later</p>
+            </div>
+          ) : (
+            data?.books?.map((book) => (
+              <BookCard key={book?._id} isUser={true} data={book}  />
+            ))
+          )
+        }
         </div>
     </>
   )
