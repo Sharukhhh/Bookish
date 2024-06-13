@@ -1,9 +1,9 @@
 import React from 'react'
 import { NavLink } from "react-router-dom";
 
-const NavList = ({listTitle}) => {
+const NavList = ({listTitle, to}) => {
   return (
-    <NavLink to={''}>
+    <NavLink to={to}>
         <li className='text-white hover:text-blue-200'>
             {listTitle}
         </li>

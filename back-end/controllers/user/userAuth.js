@@ -1,6 +1,7 @@
 import User from '../../models/users.js';
 import { comparePassword, encodePassword, generateToken } from '../../utils/utills.js';
 
+
 /*
 path: '/api/user/signup'
 method: POST
@@ -17,7 +18,6 @@ export const userSignup = async (req, res, next) => {
         }
 
         const encryptedPassword = await encodePassword(password);
-
         await User.create({
             username,
             email,
@@ -27,8 +27,7 @@ export const userSignup = async (req, res, next) => {
         return res.status(201).json({message: 'Account Created'});
 
     } catch (error) {
-        
-        console.log(error);
+        return res.statusCode(500).json({error: 'Server Error'});
     }
 }
 
@@ -65,10 +64,10 @@ export const userLogin = async (req, res, next) => {
             return res.status(500).json({error: 'Server error'});
         }
 
-        res.setHeader('Authorization' , `Bearer ${token}`);
-        return res.status(200).json({message: 'Login Successfull, Welcome'});
+        // res.setHeader('Authorization' , `Bearer ${token}`);
+        return res.status(200).json({message: 'Login Successfull, Welcome' , token , payload});
 
     } catch (error) {
-        
+        return res.statusCode(500).json({error: 'Server Error'});
     }
 }

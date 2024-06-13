@@ -21,7 +21,16 @@ const bookSchema = mongoose.Schema({
     price: {
         type: String,
         required: true
+    },
+
+    image: {
+        type: String,
     }
 
     
 } , {timestamps:true});
+
+
+const bookModel = mongoose.model('books' , bookSchema);
+
+export default bookModel;

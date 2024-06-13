@@ -1,4 +1,11 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const payload = {
+    adminEmail: process.env.ADMIN_EMAIL,
+    adminPassword : process.env.ADMIN_PASSWORD,
+}
 
 export const verifyOrigin = async (req, res, next) => {
     try {

@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import { generateToken } from '../../utils/utills.js';
 
 const payload = {
     adminEmail: process.env.ADMIN_EMAIL,
@@ -15,12 +16,14 @@ export const adminLogin = async (req, res, next) => {
         const{ email , password} = req.body;
 
         if(payload.adminEmail === email && payload.adminPassword === password) {
-            return res.status(200).json({message: 'Welcome Admin!'});
+
+            const token = await generateToken(payload);
+            return res.status(200).json({message: 'Welcome Admin!' , token , payload});
 
         } else {
             return res.status(404).json({error: 'Invalid credentials'});
         }
     } catch (error) {
-        console.log(error);
+        return res.statusCode(500).json({error: 'Server Error'});
     }
 }
