@@ -17,5 +17,3 @@
 ![img1](screenshots/img2.png)
 
 ![img1](screenshots/img3.png)
-
-![img1](screenshots/img4.png)
