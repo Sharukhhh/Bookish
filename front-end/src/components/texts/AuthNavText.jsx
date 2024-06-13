@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const AuthNavText = ({isLogin}) => {
+const AuthNavText = ({isLogin, forAdmin}) => {
     return (
         isLogin ? (
             <p className='mt-4 text-gray-500 text-sm'>

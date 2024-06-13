@@ -8,7 +8,7 @@ import { displaySuccessAlert, triggerErrorAlert } from '../../utils/alertUtils'
 import { useLoginUserMutation } from '../../redux/slices/services/apiSlice'
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '../../redux/slices/states/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate  , Link} from 'react-router-dom';
 import { setadminInfo } from '../../redux/slices/states/adminSlice';
 import { useAdminLoginMutation } from '../../redux/slices/services/adminApiSlice';
 
@@ -87,11 +87,10 @@ const Login = ({isUser}) => {
                         <Button buttonText={'LOGIN'}/>
                     )}
                 </form>
-                {isUser && (
-                    <>
                     <AuthNavText isLogin={true} />
-                    </>
-                )}
+                <p className='mt-4 text-gray-500 text-sm'>
+                    Check on Admin side - <Link to={'/admin'} className="text-blue-500">Admin</Link>
+                </p>
             </div>
         </div>
     )
