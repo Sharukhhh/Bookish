@@ -5,9 +5,17 @@
 
 ## Links
 
+-**API Documentation**: [Postman](https://documenter.getpostman.com/view/26846855/2sA3XQfMFW)
+
 - **Live Link**: [live Link](https://bookish-eta.vercel.app/)
 
-- **Admin Side**: [admin link](https://bookish-eta.vercel.app/admin)
+- **Admin Side**: [admin link](https://bookish-eta.vercel.app/login)
+
+To login as admin, use the following credentials:
+
+    - **Email:** admin24@gmail.com
+    - **Password:** admin@2024
+
 
 
 ## Some of the screenshots from app

@@ -9,14 +9,14 @@ route.post('/login', adminLogin);
 
 
 //BOOK-MANAGEMENT
-route.post('/add_book' ,   addBook);
+route.post('/add_book' , verifyOrigin ,  addBook);
 
-route.get('/books' , getBooks);
+route.get('/books', verifyOrigin , getBooks);
 
-route.delete('/delete_book/:id' ,  removeBook);
+route.delete('/delete_book/:id' , verifyOrigin , removeBook);
 
-route.put('/edit_book/:id' ,  updateBookDetails);
+route.put('/edit_book/:id' , verifyOrigin , updateBookDetails);
 
-route.get('/book/:id' ,  getSingleBook);
+route.get('/book/:id' , verifyOrigin , getSingleBook);
 
 export default route;
