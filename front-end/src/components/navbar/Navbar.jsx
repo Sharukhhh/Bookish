@@ -67,13 +67,14 @@ const Navbar = ({isUser}) => {
                     <ul className='space-y-4 mt-4'>
                         {isUser ? (
                             <>
-                                <NavList listTitle={'PROFILE'}/>
-                                <NavList listTitle={'YOUR CART'}/>
+                            <NavList listTitle={'PROFILE'} to={'/home'}/>
+                            <NavList listTitle={'YOUR CART'} to={'/cart'}/>
                             </>
                         ) : (
                             <>
-                                <NavList listTitle={'PROFILE'}/>
-                                <NavList listTitle={'CHECK OUTS'}/>
+                            <NavList listTitle={'DASHBOARD'} to={'/admin/dashboard'}/>
+                            <NavList listTitle={'ADD YOUR ITEM'} to={'/admin/add_item'}/>
+                            <NavList listTitle={'CHECK OUTS'}/>
                             </>
                         )}
                         <button onClick={handleLogout} className='px-4 py-2 text-black bg-white rounded-md font-semibold hover:scale-95'>

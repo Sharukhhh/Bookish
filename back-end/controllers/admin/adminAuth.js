@@ -24,6 +24,6 @@ export const adminLogin = async (req, res, next) => {
             return res.status(404).json({error: 'Invalid credentials'});
         }
     } catch (error) {
-        return res.statusCode(500).json({error: 'Server Error'});
+        return res.status(500).json({error: 'Server Error'});
     }
 }

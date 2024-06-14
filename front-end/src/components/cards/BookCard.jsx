@@ -5,16 +5,14 @@ import { ImCart } from "react-icons/im";
 import { BsCartXFill } from "react-icons/bs";
 import { confirmDeletion, displaySuccessAlert, showInfo, triggerErrorAlert } from '../../utils/alertUtils';
 import { useDeleteBookMutation } from '../../redux/slices/services/adminApiSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { addtoCart, removeFromCart } from '../../redux/slices/states/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import { useAddAndRemoveFromCartMutation } from '../../redux/slices/services/apiSlice';
 
-const BookCard = ({isUser , data}) => {
+const BookCard = ({isUser , data , cart}) => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const cartItems = useSelector((state) => state.cart.items);
     const [deleteBook ] = useDeleteBookMutation();
+    const [addAndRemoveFromCart] = useAddAndRemoveFromCartMutation();
 
     // to delete a book
     const handleBookDeletion = async (bookId) => {
@@ -34,28 +32,29 @@ const BookCard = ({isUser , data}) => {
         }
     }
 
-    // to add an item to cart
-    const addBookToCart = (bookData) => {
-        const exists = cartItems.find((book) => book._id === bookData._id);
-        if(exists){
-            showInfo(`${bookData?.bookName} already added in cart`);
-            return;
+    // to check is in cart
+    const isInCart = cart?.items?.map((item => item?.bookId?._id === data?._id))
+
+    // Add or remove from cart
+    const toggleItemToOrFromCart = async (bookId) => {
+        try {
+            const response = await addAndRemoveFromCart(bookId);
+            if(response.data?.message){
+                showInfo(response.data?.message);
+            }
+            if(response.error){
+                triggerErrorAlert(response.error.data.error)
+            }
+        } catch (error) {
+            if(error.data.error) {
+                console.log(error)
+                triggerErrorAlert(error.data.error)
+            } else {
+                triggerErrorAlert(error.statusText);
+            }
         }
-        dispatch(addtoCart(bookData));
-        displaySuccessAlert(`${bookData?.bookName} Added to Cart Successfully`);
     }
 
-    // to remove from cart
-    const remove = (bookId) => {
-        dispatch(removeFromCart(bookId));
-        const result = isbookInCart(bookId)
-        displaySuccessAlert('Item removed from cart!');
-    }
-
-    // to check if exists to conditionally render
-    const isbookInCart = (bookId) => {
-        return cartItems.some((item) => item?._id === bookId);
-    }
 
     // navigate to edit page
     const moveToEditPage = (id) => {
@@ -88,12 +87,12 @@ const BookCard = ({isUser , data}) => {
                     <div className='flex justify-start space-x-2'>
                         {isUser ? (
                             <>
-                            {isbookInCart(data?._id) ? (
-                                <button onClick={() => remove(data?._id)} title='remove from cart' className='bg-red-500 text-white px-4 py-2 rounded shadow-md hover:scale-90'>
+                            {isInCart ? (
+                                <button onClick={() => toggleItemToOrFromCart(data?._id)} title='remove from cart' className='bg-red-500 text-white px-4 py-2 rounded shadow-md hover:scale-90'>
                                     <BsCartXFill size={20}/>
                                 </button>
                             ) : (
-                                <button onClick={() => addBookToCart(data)} onC title='Add to cart' className='bg-blue-500 text-white px-4 py-2 rounded shadow-md hover:scale-90'>
+                                <button onClick={() => toggleItemToOrFromCart(data?._id)} onC title='Add to cart' className='bg-blue-500 text-white px-4 py-2 rounded shadow-md hover:scale-90'>
                                     <ImCart size={20}/>
                                 </button>
                             )}

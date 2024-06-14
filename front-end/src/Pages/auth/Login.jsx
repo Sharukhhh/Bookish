@@ -88,9 +88,11 @@ const Login = ({isUser}) => {
                     )}
                 </form>
                     <AuthNavText isLogin={true} />
-                <p className='mt-4 text-gray-500 text-sm'>
-                    Check on Admin side - <Link to={'/admin'} className="text-blue-500">Admin</Link>
-                </p>
+                {isUser && (
+                    <p className='mt-4 text-gray-500 text-sm'>
+                        Check on Admin side - <Link to={'/admin'} className="text-blue-500">Admin</Link>
+                    </p>
+                )}    
             </div>
         </div>
     )

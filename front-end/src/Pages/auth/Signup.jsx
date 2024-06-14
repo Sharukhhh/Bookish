@@ -4,9 +4,10 @@ import Inputfield from '../../components/fields/Inputfield'
 import Button from '../../components/buttons/Button'
 import { ThreeDots } from "react-loader-spinner";
 import { useAuthForm } from '../../custom hooks/authFormhook'
-import { displaySuccessAlert, triggerErrorAlert } from '../../utils/alertUtils'
+import { displaySuccessAlert, showPasswordNeedsAlert, triggerErrorAlert } from '../../utils/alertUtils'
 import { useRegisterUserMutation } from '../../redux/slices/services/apiSlice'
 import { useNavigate } from 'react-router-dom'
+import { isStrongPassword } from '../../utils/passwordUtils';
 
 const Signup = () => {
 
@@ -19,8 +20,15 @@ const Signup = () => {
 
         try {
 
+            // Validations for form-data..........................
             if(!userData.email || !userData.password || !userData.username || !confirmpassword) {
                 triggerErrorAlert('Invalid Entry');
+                return;
+            }
+
+            const {isStrong , passwordNeeds} = isStrongPassword(userData.password);
+            if(!isStrong) {
+                showPasswordNeedsAlert(passwordNeeds);
                 return;
             }
 
@@ -28,6 +36,7 @@ const Signup = () => {
                 triggerErrorAlert('Password does not match!');
                 return;
             }
+            // Validations for form-data...........................
 
             const result = await registerUser(userData).unwrap();
             displaySuccessAlert(result?.message);

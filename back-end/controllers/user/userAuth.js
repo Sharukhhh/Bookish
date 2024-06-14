@@ -28,7 +28,7 @@ export const userSignup = async (req, res, next) => {
         return res.status(201).json({message: 'Account Created'});
 
     } catch (error) {
-        return res.statusCode(500).json({error: 'Server Error'});
+        return res.status(500).json({error: 'Server Error'});
     }
 }
 
@@ -70,7 +70,7 @@ export const userLogin = async (req, res, next) => {
         return res.status(200).json({message: 'Login Successfull, Welcome' , token , payload});
 
     } catch (error) {
-        return res.statusCode(500).json({error: 'Server Error'});
+        return res.status(500).json({error: 'Server Error'});
     }
 }
 
@@ -90,6 +90,6 @@ export const getBooks = async (req, res) => {
         return res.status(200).json({message: 'success' , books});
 
     } catch (error) {
-        return res.statusCode(500);
+        return res.status(500);
     }
 }

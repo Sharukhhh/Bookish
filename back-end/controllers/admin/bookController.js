@@ -27,7 +27,7 @@ export const addBook = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        return res.statusCode(500).json({error: 'Server Error'});
+        return res.status(500).json({error: 'Server Error'});
     }
 }
 
@@ -47,7 +47,7 @@ export const getBooks = async (req, res) => {
         return res.status(200).json({message: 'success' , books});
 
     } catch (error) {
-        return res.statusCode(500).json({error: 'Server Error'});
+        return res.status(500).json({error: 'Server Error'});
     }
 }
 
@@ -68,7 +68,7 @@ export const getSingleBook = async (req, res) => {
         return res.status(200).json({book});
     } catch (error) {
         console.log(error);
-        // return res.statusCode(500).json({error: 'Server Error'});
+        return res.status(500).json({error: 'Server Error'});
     }
 }
 
@@ -89,7 +89,7 @@ export const updateBookDetails = async (req, res, next) => {
             author,
             price,
             image
-        });
+        } , {new : true});
 
         if(!bookDetails) {
             return res.status(404).json({error: 'Data not Found'});
@@ -99,7 +99,7 @@ export const updateBookDetails = async (req, res, next) => {
 
     } catch (error) {
         console.log(error);
-        return res.statusCode(500).json({error: 'Server Error'});
+        return res.status(500).json({error: 'Server Error'});
     }
 }
 
@@ -123,6 +123,6 @@ export const removeBook = async (req, res, next) => {
 
     } catch (error) {
         console.log(error);
-        return res.statusCode(500).json({error: 'Server Error'});
+        return res.status(500).json({error: 'Server Error'});
     }
 } 

@@ -37,3 +37,11 @@ export const showInfo = (message) => {
         icon: 'info'
     })
 }
+
+export const showPasswordNeedsAlert = (reqs) => {
+
+    const passwordNeeds  = `Password must be at least ${reqs.minLength} characters long,
+                    contain at least one uppercase letter, one lowercase letter, one number, and one special character.`
+    
+    triggerErrorAlert(passwordNeeds);
+}
