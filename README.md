@@ -5,7 +5,7 @@
 
 ## Links
 
--**API Documentation**: [Postman](https://documenter.getpostman.com/view/26846855/2sA3XQfMFW)
+- **API Documentation**: [Postman](https://documenter.getpostman.com/view/26846855/2sA3XQfMFW)
 
 - **Live Link**: [live Link](https://bookish-eta.vercel.app/)
 
@@ -14,8 +14,8 @@
 
 **To login as admin, use the following credentials as email and password respectively:**
 
-    - admin24@gmail.com
-    - admin@2024
+    admin24@gmail.com
+    admin@2024
 
 
 
