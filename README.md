@@ -1,4 +1,4 @@
-# BOOKISH - BE  BOOKISH
+# BOOKISH 
 **An Online bookstore application specially for Book-worm buddies.**
 **A Full stack Web Application developed using MERN**
 
@@ -11,10 +11,11 @@
 
 - **Admin Side**: [admin link](https://bookish-eta.vercel.app/login)
 
-To login as admin, use the following credentials:
 
-    - **Email:** admin24@gmail.com
-    - **Password:** admin@2024
+**To login as admin, use the following credentials as email and password respectively:**
+
+    - admin24@gmail.com
+    - admin@2024
 
 
 
