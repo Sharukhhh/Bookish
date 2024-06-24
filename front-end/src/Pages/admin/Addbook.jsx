@@ -65,7 +65,7 @@ const Addbook = () => {
             navigate('/admin/dashboard');
         } catch (error) {
             if(error.data.error) {
-                triggerErrorAlert(error.data.error);
+                triggerErrorAlert(error.data?.error);
             } else {
                 triggerErrorAlert(error.statusText);
             }
