@@ -2,13 +2,13 @@ import {initializeApp} from 'firebase/app';
 import {getStorage} from 'firebase/storage'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBEPnDX02fc5yjaQXZnMUL9hsh1XTzBkl4",
-    authDomain: "bookish-c9240.firebaseapp.com",
-    projectId: "bookish-c9240",
-    storageBucket: "bookish-c9240.appspot.com",
-    messagingSenderId: "1080875457851",
-    appId: "1:1080875457851:web:72974042d8e8f4a7bf6b1e",
-    measurementId: "G-K8BEQYMBJ0",
+    apiKey: import.meta.env.FIREBASE_API_KEY,
+    authDomain: import.meta.env.FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.FIREBASE_MESSAGE_SENDERID,
+    appId: import.meta.env.FIREBASE_APPID,
+    measurementId: import.meta.env.FIREBASE_MEASUREMENT_ID,
 }
 
 const app = initializeApp(firebaseConfig);
