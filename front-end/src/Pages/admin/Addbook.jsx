@@ -51,9 +51,11 @@ const Addbook = () => {
                 let imageUrl = bookData.image;
                 if(bookData.image instanceof File) {
                     setUploadingImg(true);
+                    console.log('here')
                     const storageRef = ref(storage , `book_Images/${bookData.image.name}`);
                     await uploadBytes(storageRef , bookData.image);
                     imageUrl = await getDownloadURL(storageRef);
+                    console.log(imageUrl , '##')
                     setUploadingImg(false);
                 } else {
                     triggerErrorAlert('Upload errr');
@@ -64,10 +66,10 @@ const Addbook = () => {
             displaySuccessAlert(response.message);
             navigate('/admin/dashboard');
         } catch (error) {
-            if(error.data.error) {
-                triggerErrorAlert(error.data?.error);
+            if(error?.data?.error) {
+                triggerErrorAlert(error?.data?.error);
             } else {
-                triggerErrorAlert(error.statusText);
+                triggerErrorAlert(error?.statusText);
             }
         }
     }
