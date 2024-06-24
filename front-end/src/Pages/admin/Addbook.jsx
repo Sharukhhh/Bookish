@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import Inputfield from '../../components/fields/Inputfield'
 import Button from '../../components/buttons/Button'
@@ -8,11 +8,14 @@ import { useAddBookMutation, useGetSingleBookQuery, useUpdateBookMutation } from
 import { displaySuccessAlert, triggerErrorAlert } from '../../utils/alertUtils'
 import { useNavigate, useParams } from 'react-router-dom';
 import { Grid } from "react-loader-spinner";
+import { storage } from '../../firebase/firebaseapp';
+import { ref , uploadBytes , getDownloadURL} from 'firebase/storage';
 
 const Addbook = () => {
 
     const {id} = useParams();
-    const {bookData , handleChangeData, setBookData } = useBookForm();
+    const {bookData , handleChangeData, setBookData  , imgPreview , clearImg} = useBookForm();
+    const [uploadingImg , setUploadingImg] = useState(false);
     const navigate = useNavigate();
     const [addBook , {isLoading}] = useAddBookMutation()
     const {data , isLoading: isEditDataFetchning} = useGetSingleBookQuery(id);
@@ -42,9 +45,21 @@ const Addbook = () => {
             let response = null;
 
             if(id) {
-                response = await updateBook({id, ...bookData}).unwrap();
+                response = await updateBook({id, ...bookData }).unwrap();
             }else {
-                response = await addBook(bookData).unwrap();
+
+                let imageUrl = bookData.image;
+                if(bookData.image instanceof File) {
+                    setUploadingImg(true);
+                    const storageRef = ref(storage , `book_Images/${bookData.image.name}`);
+                    await uploadBytes(storageRef , bookData.image);
+                    imageUrl = await getDownloadURL(storageRef);
+                    setUploadingImg(false);
+                } else {
+                    triggerErrorAlert('Upload errr');
+                    return;
+                }
+                response = await addBook({bookData, image: imageUrl}).unwrap();
             }
             displaySuccessAlert(response.message);
             navigate('/admin/dashboard');
@@ -63,7 +78,9 @@ const Addbook = () => {
             <div className='container mx-auto p-4 mt-24 flex justify-center'>
 
                 <div className='w-full md:w-1/2 bg-neutral-100 border border-gray-300 rounded-lg shadow-lg p-6'>
-                    <h2 className='text-2xl font-bold mb-8'>ADD YOUR BOOK</h2>
+                    <h2 className='text-2xl font-bold mb-8'>
+                        { id ? 'UPDATE BOOK' : 'ADD YOUR BOOK'}
+                    </h2>
                     {id && isEditDataFetchning ? (
                         <div className='flex justify-center my-20'>
                             <Grid
@@ -105,30 +122,32 @@ const Addbook = () => {
                             value={bookData.price}
                             onChange={handleChangeData}
                             />
-                            {/* <div className='flex flex-col md:flex-row items-center'>
-                                <div className='flex-1'>
-                                    <Inputfield
-                                    labelFor={'image'} labelName={'Enter image'}
-                                    placeholder={'Choose'}
-                                    name={'image'}
-                                    type={'file'}
-                                    onChange={handleChangeData}
-                                    />
-                                </div>
-                                {imgPreview && (
-                                    <div className='relative mt-4 md:mt-0 md:ml-4'>
-                                        <img src={imgPreview} alt="Preview" className='w-32 h-32 object-cover rounded-md shadow-md' />
-                                        <button
-                                            type="button"
-                                            onClick={clearImg}
-                                            className='absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-xs transform translate-x-1/2 -translate-y-1/2'>
-                                            X
-                                        </button>
+                            {!id && (
+                                <div className='flex flex-col md:flex-row items-center'>
+                                    <div className='flex-1'>
+                                        <Inputfield
+                                        labelFor={'image'} labelName={'Enter image'}
+                                        placeholder={'Choose'}
+                                        name={'image'}
+                                        type={'file'}
+                                        onChange={handleChangeData}
+                                        />
                                     </div>
-                                )}
-                            </div> */}
+                                    {imgPreview && (
+                                        <div className='relative mt-4 md:mt-0 md:ml-4'>
+                                            <img src={imgPreview} alt="Preview" className='w-32 h-32 object-cover rounded-md shadow-md' />
+                                            <button
+                                                type="button"
+                                                onClick={clearImg}
+                                                className='absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-xs transform translate-x-1/2 -translate-y-1/2'>
+                                                X
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                             {
-                                isLoading || isUpdating? (
+                                isLoading || uploadingImg || isUpdating? (
                                     <ThreeDots
                                     visible={true}
                                     ariaLabel="three-dots-loading"

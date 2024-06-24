@@ -8,8 +8,9 @@ method: POST
 export const addBook = async (req, res) => {
     try {
         
-        const {bookName , author, bookInfo, price } = req.body;
-        console.log(req.body)
+        const {bookName , author, bookInfo, price } = req.body.bookData;
+        const imageUrl = req.body.image;
+        console.log(imageUrl)
 
         const exisitngBook = await Book.findOne({bookName: bookName});
         if(exisitngBook) {
@@ -20,7 +21,8 @@ export const addBook = async (req, res) => {
             bookName,
             bookInfo,
             author,
-            price
+            price,
+            image: imageUrl
         });
 
         return res.status(201).json({message: `Book: ${bookName}, added successfully`});
