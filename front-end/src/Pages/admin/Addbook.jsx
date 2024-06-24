@@ -49,16 +49,20 @@ const Addbook = () => {
             }else {
 
                 let imageUrl = bookData.image;
+                console.log(imageUrl , 'url avde')
+
                 if(bookData.image instanceof File) {
                     setUploadingImg(true);
                     console.log('here')
                     const storageRef = ref(storage , `book_Images/${bookData.image.name}`);
+                    console.log(storageRef, 'the ref')
                     await uploadBytes(storageRef , bookData.image);
                     imageUrl = await getDownloadURL(storageRef);
-                    console.log(imageUrl , '##')
+                    console.log(imageUrl , '##');
                     setUploadingImg(false);
                 } else {
                     triggerErrorAlert('Upload errr');
+                    console.log('err ivide')
                     return;
                 }
                 response = await addBook({bookData, image: imageUrl}).unwrap();
