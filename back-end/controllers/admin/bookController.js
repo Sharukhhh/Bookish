@@ -1,4 +1,5 @@
 import Book from '../../models/books.js';
+import Cart from '../../models/cart.js';
 
 
 /*
@@ -24,6 +25,8 @@ export const addBook = async (req, res) => {
             price,
             image: imageUrl
         });
+
+
 
         return res.status(201).json({message: `Book: ${bookName}, added successfully`});
 
@@ -120,6 +123,11 @@ export const removeBook = async (req, res, next) => {
         if(!deletedBook) {
             return res.status(404).json({error:'No data found'});
         }
+
+        await Cart.updateMany(
+            {'items.bookId' : bookId} ,
+            {$pull: {items: {bookId: bookId}}}
+        )
 
         return res.status(200).json({message: `Removed ${deletedBook?.bookName}!`});
 
