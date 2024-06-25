@@ -81,15 +81,24 @@ method: GET
 */
 export const getBooks = async (req, res) => {
     try {
-        const books = await Book.find();
+
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 4;
+
+        const skip = (page - 1) * limit;
+
+        const books = await Book.find().sort({createdAt: -1}).skip(skip).limit(limit);
+
+        const totalBooks = await Book.countDocuments();
 
         if(books.length === 0) {
             return res.status(404).json({error: 'Books not found'});
         }
 
-        return res.status(200).json({message: 'success' , books});
+        return res.status(200).
+        json({message: 'success' , books , currentPage: page , totalPages: Math.ceil(totalBooks / limit)});
 
     } catch (error) {
-        return res.status(500);
+        return res.status(500).json({error: 'Server Error'});
     }
 }

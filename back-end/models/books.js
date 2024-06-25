@@ -25,7 +25,18 @@ const bookSchema = mongoose.Schema({
 
     image: {
         type: String,
-        // default: 'https://img.freepik.com/premium-photo/high-angle-view-red-book-against-white-background_1048944-30851930.jpg'
+    },
+
+    pusblishedBy: {
+        type: String
+    },
+
+    genre: {
+        type: String,
+    },
+
+    tags: {
+        type: [String]
     }
 
     

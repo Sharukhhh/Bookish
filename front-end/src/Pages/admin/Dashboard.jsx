@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import BookCard from '../../components/cards/BookCard'
 import { Grid } from "react-loader-spinner";
 import { useGetBooksQuery } from '../../redux/slices/services/adminApiSlice'
+import Pagination from '../../components/pagination/Pagination';
 
 const Dashboard = () => {
     
-    const {data , isError ,  isLoading} = useGetBooksQuery()
+    const [currentPage , setCurrentPage] = useState( 1);
+    const {data , isError ,  isLoading} = useGetBooksQuery({page: currentPage , limit: 4})
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page)
+    }
 
     return (
         <>
@@ -33,6 +39,11 @@ const Dashboard = () => {
                     )
                 }
             </div>
+            <Pagination
+            currentPage={data?.currentPage || currentPage}
+            totalPages={data?.totalPages}
+            onPageChange={handlePageChange}
+            />
         </>
     )
 }

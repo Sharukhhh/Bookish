@@ -39,8 +39,8 @@ export const adminApiSlice = createApi({
         }),
 
         getBooks: builder.query({
-            query: () => ({
-                url : 'books',
+            query: ({page , limit}) => ({
+                url : `books?page=${page}&limit=${limit}`,
                 method: 'GET',
             }),
             providesTags: [{type: 'books' , id: 'LIST'}]
