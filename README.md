@@ -36,15 +36,19 @@
 
 ## Some of the screenshots from app
 
-![img1](screenshots/img1.png)
+![img1](screenshots/auth_form.png)
 
 ---
 
-![img1](screenshots/img2.png)
+![img2](screenshots/admin1.png)
 
 ---
 
-![img1](screenshots/img3.png)
+![img3](screenshots/admin2.png)
+
+---
+
+![img4](screenshots/form.png)
 
 
 ## Follow these steps to run this on your local machine:
