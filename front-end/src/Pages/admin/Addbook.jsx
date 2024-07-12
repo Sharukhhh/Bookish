@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Grid } from "react-loader-spinner";
 import { storage } from '../../firebase/firebaseapp';
 import { ref , uploadBytes , getDownloadURL} from 'firebase/storage';
+import { Helmet } from 'react-helmet-async';
 
 const Addbook = () => {
 
@@ -76,6 +77,9 @@ const Addbook = () => {
 
     return (
         <>
+            <Helmet>
+                <title>{id ? `${data?.book?.bookName}` : 'Add Book'}</title>
+            </Helmet>
             <Navbar isUser={false}/>
             <div className='container mx-auto p-4 mt-24 flex justify-center'>
 

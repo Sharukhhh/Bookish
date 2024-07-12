@@ -4,12 +4,18 @@ import BookCard from '../../components/cards/BookCard'
 import Searchfield from '../../components/fields/Searchfield'
 import { useBooksForUsersQuery } from '../../redux/slices/services/apiSlice'
 import {Grid} from 'react-loader-spinner'
+import { Helmet } from 'react-helmet-async'
+import { useSelector } from 'react-redux'
 
 const UserHome = () => {
 
   const {data , isLoading , isError} = useBooksForUsersQuery()
+  const userInfo = useSelector((state) => state.userCred.userInfo)
   return (
     <>
+      <Helmet>
+        <title>Welcome {userInfo?.username}</title>
+      </Helmet>
         <Navbar isUser={true}/>
         <div className='container mx-auto p-4 mt-24'>
           <Searchfield/>

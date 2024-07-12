@@ -8,6 +8,7 @@ import { displaySuccessAlert, showPasswordNeedsAlert, triggerErrorAlert } from '
 import { useRegisterUserMutation } from '../../redux/slices/services/apiSlice'
 import { useNavigate } from 'react-router-dom'
 import { isStrongPassword } from '../../utils/passwordUtils';
+import { Helmet } from 'react-helmet-async';
 
 const Signup = () => {
 
@@ -53,6 +54,9 @@ const Signup = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Create Account - Bookish</title>
+            </Helmet>
             <div className='flex flex-col items-center justify-center h-screen  bg-gradient-to-t from-[#E9E4F0] to-[#D3CCE3]'>
                 <h2 className='text-2xl font-semibold font-mono mb-4 text-center'>
                     WELCOME TO BOOKISH

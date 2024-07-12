@@ -11,6 +11,7 @@ import { setUserInfo } from '../../redux/slices/states/authSlice';
 import { useNavigate  , Link} from 'react-router-dom';
 import { setadminInfo } from '../../redux/slices/states/adminSlice';
 import { useAdminLoginMutation } from '../../redux/slices/services/adminApiSlice';
+import { Helmet } from 'react-helmet-async';
 
 const Login = ({isUser}) => {
 
@@ -53,48 +54,53 @@ const Login = ({isUser}) => {
         }
     }
     return (
-        <div className='flex flex-col items-center justify-center h-screen bg-gradient-to-t from-[#E9E4F0] to-[#D3CCE3]'>
-            <h2 className='text-2xl font-semibold font-mono mb-4 text-center'>
-                {isUser ? 'LOGIN TO YOUR ACCOUNT' : 'ADMIN MANAGEMENT'}
-            </h2>
-            <div className='max-w-md w-full space-y-8 p-6 border border-gray-300 rounded-md shadow-lg bg-neutral-100'>
-                <form onSubmit={handleSubmit} className='space-y-8'>
-                    <Inputfield 
-                    labelFor={'email'} labelName={'Enter email'}
-                    type={'email'}
-                    name={'email'}
-                    placeholder={'user@gmail.com'}
-                    value={userData.email}
-                    onChange={handleChangeData}
-                    />
-                    <Inputfield
-                    labelFor={'password'} labelName={'Enter password'}
-                    type={'password'}
-                    name={'password'}
-                    placeholder={'*********'}
-                    value={userData.password}
-                    onChange={handleChangeData}
-                    />
-                    {isLoading ? (
-                        <ThreeDots
-                        visible={true}
-                        ariaLabel="three-dots-loading"
-                        height="50"
-                        width="50"
-                        color='blue'
+        <>
+            <Helmet>
+                <title>{isUser ? 'User Login' : 'Admin Management'}</title>
+            </Helmet>
+            <div className='flex flex-col items-center justify-center h-screen bg-gradient-to-t from-[#E9E4F0] to-[#D3CCE3]'>
+                <h2 className='text-2xl font-semibold font-mono mb-4 text-center'>
+                    {isUser ? 'LOGIN TO YOUR ACCOUNT' : 'ADMIN MANAGEMENT'}
+                </h2>
+                <div className='max-w-md w-full space-y-8 p-6 border border-gray-300 rounded-md shadow-lg bg-neutral-100'>
+                    <form onSubmit={handleSubmit} className='space-y-8'>
+                        <Inputfield 
+                        labelFor={'email'} labelName={'Enter email'}
+                        type={'email'}
+                        name={'email'}
+                        placeholder={'user@gmail.com'}
+                        value={userData.email}
+                        onChange={handleChangeData}
                         />
-                    ) : (
-                        <Button buttonText={'LOGIN'}/>
-                    )}
-                </form>
-                    <AuthNavText isLogin={true} />
-                {isUser && (
-                    <p className='mt-4 text-gray-500 text-sm'>
-                        Check on Admin side - <Link to={'/admin'} className="text-blue-500">Admin</Link>
-                    </p>
-                )}    
+                        <Inputfield
+                        labelFor={'password'} labelName={'Enter password'}
+                        type={'password'}
+                        name={'password'}
+                        placeholder={'*********'}
+                        value={userData.password}
+                        onChange={handleChangeData}
+                        />
+                        {isLoading ? (
+                            <ThreeDots
+                            visible={true}
+                            ariaLabel="three-dots-loading"
+                            height="50"
+                            width="50"
+                            color='blue'
+                            />
+                        ) : (
+                            <Button buttonText={'LOGIN'}/>
+                        )}
+                    </form>
+                        <AuthNavText isLogin={true} />
+                    {isUser && (
+                        <p className='mt-4 text-gray-500 text-sm'>
+                            Check on Admin side - <Link to={'/admin'} className="text-blue-500">Admin</Link>
+                        </p>
+                    )}    
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 
