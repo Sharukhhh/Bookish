@@ -78,7 +78,7 @@ const Addbook = () => {
     return (
         <>
             <Helmet>
-                <title>{id ? `${data?.book?.bookName}` : 'Add Book'}</title>
+                <title>{id ? `Update - ${data?.book?.bookName} || Update Book Details` : 'Add Book'}</title>
             </Helmet>
             <Navbar isUser={false}/>
             <div className='container mx-auto p-4 mt-24 flex justify-center'>
