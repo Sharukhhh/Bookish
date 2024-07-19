@@ -5,8 +5,6 @@
 
 ## Links
 
-- **Task Explanation** : [Loom Video](https://www.loom.com/share/d0b2fd8cdfc347fcb25295d3e0f0be5c?sid=803f54fb-e7da-4500-93cf-86e95f6a04f2)
-
 - **API Documentation**: [Postman](https://documenter.getpostman.com/view/26846855/2sA3XQfMFW)
 
 - **Live Link**: [live Link](https://bookish-eta.vercel.app/)
